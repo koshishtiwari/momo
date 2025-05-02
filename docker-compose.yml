@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # Main application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3001:3001" # API server
+      - "3000:3000" # Next.js client
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/momo?schema=public
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-jwt-secret-change-in-production
+      - PORT=3001
+      - NEXT_PUBLIC_API_URL=http://localhost:3001/api
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - momo-network
+
+  # PostgreSQL database
+  postgres:
+    image: postgres:14-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: momo
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - momo-network
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - momo-network
+
+  # OpenTelemetry collector (optional, for production monitoring)
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./config/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4318:4318" # OTLP HTTP
+    networks:
+      - momo-network
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+
+volumes:
+  postgres-data:
+  redis-data:
+
+networks:
+  momo-network:
+    driver: bridge

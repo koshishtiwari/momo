@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom brutalist styling */
+:root {
+  --color-text: #000;
+  --color-background: #fff;
+  --color-primary: #111;
+  --color-secondary: #333;
+  --color-accent: #555;
+  --color-error: #b00;
+}
+
+@layer base {
+  html {
+    font-feature-settings: "pnum" on, "lnum" on;
+    text-rendering: optimizeSpeed;
+  }
+  
+  body {
+    @apply bg-white text-black p-0 m-0 font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+  
+  h1 {
+    @apply text-2xl;
+  }
+  
+  h2 {
+    @apply text-xl;
+  }
+  
+  h3 {
+    @apply text-lg;
+  }
+  
+  a {
+    @apply no-underline;
+  }
+  
+  a:hover {
+    @apply underline;
+  }
+  
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+/* Brutalist styling components */
+@layer components {
+  .btn {
+    @apply bg-black text-white py-2 px-4 border-2 border-black;
+  }
+  
+  .btn:hover {
+    @apply bg-white text-black;
+  }
+  
+  .input {
+    @apply border-2 border-black p-2;
+  }
+  
+  .card {
+    @apply border-2 border-black p-4;
+  }
+  
+  .header-link {
+    @apply text-base uppercase font-bold;
+  }
+  
+  .category-link {
+    @apply block py-1;
+  }
+  
+  .category-link-active {
+    @apply font-bold;
+  }
+}
