@@ -46,7 +46,7 @@ export const isAdmin = async (request: FastifyRequest, reply: FastifyReply) => {
   try {
     await request.jwtVerify();
     
-    if (request.user.role !== 'admin') {
+    if (typeof request.user === 'object' && 'role' in request.user && request.user.role !== 'admin') {
       reply.status(403).send({
         success: false,
         error: 'Forbidden: Admin access required'

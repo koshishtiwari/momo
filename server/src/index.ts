@@ -31,11 +31,7 @@ fastify.register(fastifyJwt, {
 // Add user to request type
 declare module 'fastify' {
   interface FastifyRequest {
-    user: {
-      id: string;
-      email: string;
-      role: string;
-    }
+    user: string | object | Buffer<ArrayBufferLike>;
   }
 }
 

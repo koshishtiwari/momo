@@ -78,7 +78,7 @@ export class SearchEngine {
     const searchTokens = this.generateTokens(normalizedQuery);
     
     // Score and sort products
-    const scoredProducts = allProducts.map(product => {
+    const scoredProducts = allProducts.map((product: any) => {
       // Prepare product text for matching
       const productText = `${product.name} ${product.description} ${product.sku}`.toLowerCase();
       const productTokens = this.generateTokens(productText);
@@ -125,8 +125,8 @@ export class SearchEngine {
     
     // Filter by minimum relevance and sort by score
     const results = scoredProducts
-      .filter(product => product.relevanceScore > 0.5) // Only keep reasonable matches
-      .sort((a, b) => b.relevanceScore - a.relevanceScore) // Sort by relevance
+      .filter((product: any) => product.relevanceScore > 0.5) // Only keep reasonable matches
+      .sort((a: any, b: any) => b.relevanceScore - a.relevanceScore) // Sort by relevance
       .slice(0, options.limit || 20); // Apply limit
     
     // Cache results

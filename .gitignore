@@ -1,0 +1,64 @@
+# Node.js
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency directories
+client/node_modules/
+server/node_modules/
+shared/node_modules/
+
+# Build output
+dist/
+client/.next/
+server/dist/
+shared/dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Prisma
+prisma/migrations/
+
+# Tailwind
+client/tailwind.config.js
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Debugging
+*.log
+*.trace
+*.prof
+
+# Ignore local overrides
+!docker-compose.yml
